@@ -1,72 +1,69 @@
-# The Hugging Face Blog Repository 🤗
-This is the official repository of the [Hugging Face Blog](https://hf.co/blog). 
 
-**If you are an external contributor**: If your blog post is not a collaboration post with Hugging Face, please consider creating a [community blog](https://huggingface.co/blog-explorers) instead. Community blog posts appear on our blogs main page just like the blogs in this repository.
+# BioWiC: An Evaluation Benchmark for Biomedical Concept Representation
 
-## How to write an article? 📝
-1️⃣ Create a branch `YourName/Title`
+## Introduction
+Repository for the manuscript entitled "BioWiC: An Evaluation Benchmark for Biomedical Concept Representation".
 
-2️⃣ Create a md (markdown) file, **use a short file name**.
-For instance, if your title is "Introduction to Deep Reinforcement Learning", the md file name could be `intro-rl.md`. This is important because the **file name will be the blogpost's URL**.
+In this manuscript, we present the BioWiC benchmark, a new dataset designed to assess the performance of both discriminative and generative language models in representing biomedical terms in context. 
+BioWiC is formulated as binary classification task where each instance involves a pair of biomedical terms along with their corresponding sentences. 
+The task is to classify each instance as True if the target terms carry the same meaning across both sentences or False if they do not.
 
-3️⃣ Create a new folder in `assets`. Use the same name as the name of the md file. Optionally you may add a numerical prefix to that folder, using the number that hasn't been used yet. But this is no longer required. i.e. the asset folder in this example could be `123_intro-rl` or `intro-rl`. This folder will contain **your thumbnail only**. The folder number is mostly for (rough) ordering purposes, so it's no big deal if two concurrent articles use the same number.
+## Table of Contents
+- [Introduction](#introduction)
+- [Getting Started](#getting-started)
+- [Repository Structure](#repository-structure)
+- [Installation](#installation)
+- [Codes](#Codes)
+- [BioWiC on Hugging Face](#hugging-face) 🤗
+- [Contact](#contact)
 
-For the rest of your files, create a mirrored folder in the HuggingFace Documentation Images [repo](https://huggingface.co/datasets/huggingface/documentation-images/tree/main/blog). This is to reduce bloat in the GitHub base repo when cloning and pulling.
+## Getting Started
+This section offers a guide on what you need to kick-start the project on your local machine, whether for development or testing purposes.
 
-🖼️: In terms of images, **try to have small files** to avoid having a slow loading user experience:
-- Use compressed images, you can use this website: https://tinypng.com or https://www.iloveimg.com/compress-image
-
-4️⃣ Copy and paste this to your md file and change the elements
-- title
-- thumbnail
-- authors
-```
----
-title: "PUT YOUR TITLE HERE" 
-thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
-authors:
-- user: your_hf_user
-- user: your_coauthor
----
-
-# Train your first Decision Transformer
-
-Your content here [...]
-```
-
-When published, the Hub will insert the following UI elements right after the blogpost's main header (i.e. the line that starts with a single `#`, aka. the `<h1>`):
-
-- "Published on [date]"
-- "Update on GitHub" button
-- avatars of the authors that were listed in authors.
-
-5️⃣ Then, you can add your content. It's markdown system so if you wrote your text on notion just control shift v to copy/paste as markdown.
-
-6️⃣ Modify `_blog.yml` to add your blogpost.
-
-7️⃣ When your article is ready, **open a pull request**.
-
-8️⃣ To check how your blog will look like before merging it, check out the [CodeSpace instructions](https://github.com/huggingface/moon-landing/tree/main#codespace) (internal for HF team)
-
-9️⃣ The article will be **published automatically when you merge your pull request**.
-
-## How to get a nice responsive thumbnail?
-1️⃣ Create a `1300x650` image 
-
-2️⃣ Use [this template](https://github.com/huggingface/blog/blob/main/assets/thumbnail-template.svg) and fill the content part.
-
-➡️ Or select a background you like and follow the instructions in [this Figma template](https://www.figma.com/file/sXrf9VtkkbWI7kCIesMkDY/HF-Blog-Template?node-id=351%3A39).
+## Repository Structure
+This repository is organized into several key sections:
+- `UMLS`: Scripts for preprocessing Unified Medical Language System (UMLS) data, crucial to build the BioWiC dataset.
+- `BioWiC_construction`: Scripts for assembling the BioWiC dataset.
+- `data`: BioWiC splits, i.e., train set, validation set, and test set.
+- `models`: Scripts for training and evaluating BioWiC baseline models.
 
 
-## Using LaTeX
-
-Just add:
-
-```
-\\(your_latex_here\\)
+## Installation
+Follow these instructions to install the necessary dependencies for the project
+```bash
+git clone https://github.com/hrouhizadeh/BioWiC
+cd BioWiC
+pip install -r requirements.txt
 ```
 
-For instance:
+## Codes
+To reproduce construction of BioWiC, you need to perform the following steps:
+1. Extracting UMLS information: In the `UMLS` directory, you will find the procedures to reproduce files containing UMLS information that are necessary for construction of the BioWiC dataset.
+2. Building BioWiC dataset:  Follow the instructions in the `BioWiC_construction` directory to reconstruct the BioWiC dataset.
+3. Train and evaluate models: The `models` folder contains scripts that enable you to train and assess various discriminative and generative large language models using the BioWiC dataset.
+
+Additionally, the dataset is available for direct download in the `data` folder.
 
 
-``` \\( Q(S_t, A_t) \\) ``` ➡️ $Q(S_t, A_t)$
+
+<a name="hugging-face"></a>
+## Accessing BioWiC on Hugging Face 🤗
+
+1. **Install the Hugging Face `datasets` Library:**
+   If not already installed, you can add the `datasets` library from Hugging Face.
+   ```bash
+   pip install datasets
+   ```
+
+2. **Load the BioWiC Dataset:**
+   To load the BioWiC dataset, execute the following Python code.
+   ```python
+   from datasets import load_dataset
+
+   dataset = load_dataset("hrouhizadeh/BioWiC")
+   ```
+   This command will automatically download and cache the dataset.
+
+
+## Contact
+Should you have any inquiries, feel free to contact us at _hossein.rouhizadeh@unige.ch_.
